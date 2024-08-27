@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active:
+      - dev
+---
+server:
+  port: 7001
+
+spring:
+  profiles: dev
+  application:
+    name: springcloud-config-eureka-client
+
+eureka:
+  instance:
+    appname: eureka-server-7001.com #集群,该地址需要在服务器的hosts文件进行映射
+  client:
+    register-with-eureka: false #设置服务端不自己向自己注册
+    fetch-registry: false #false表示作为服务端，只接收服务的注册与服务的实例维护
+    service-url:
+      #集群，该地址需要在服务器的hosts文件进行映射
+      defaultZone: http://eureka-server-7001.com:7001/eureka/
+---
+server:
+  port: 7001
+
+spring:
+  profiles: test
+  application:
+    name: springcloud-config-eureka-client
+
+eureka:
+  instance:
+    appname: eureka-server-7001.com #集群,该地址需要在服务器的hosts文件进行映射
+  client:
+    register-with-eureka: false #设置服务端不自己向自己注册
+    fetch-registry: false #false表示作为服务端，只接收服务的注册与服务的实例维护
+    service-url:
+      #集群，该地址需要在服务器的hosts文件进行映射
+      defaultZone: http://eureka-server-7001.com:7001/eureka/

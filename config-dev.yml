@@ -1,0 +1,86 @@
+spring:
+  profiles:
+    active:
+      - dev
+---
+server:
+  port: 8001
+spring:
+  profiles: dev
+  application:
+    name: springcloud-config-dept-client #对外显示的微服务名称，可用于服务调用，eureka服务端列表的Application列
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///springcloud1
+    username: root
+    password: root1234
+    dbcp2:
+      initial-size: 5 #初始化连接数
+      min-idle: 5 #数据库连接池的最小维持连接数
+      max-total: 5 #最大连接数
+      max-wait-millis: 200 #等待连接获取的最大超时时间
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml #mybatis配置文件所在路径
+  type-aliases-package: com.learn.springcloud.entity
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml #mybatis的mapper映射文件位置
+
+eureka:
+  client:
+    service-url:
+      #集群，地址需要在hosts文件进行映射
+      defaultZone: http://eureka-server-7001.com:7001/eureka/
+      #defaultZone: http://localhost:7001/eureka #服务注册到eureka服务端的地址，单机版
+  instance:
+    instance-id: provider-dept-8001 #注册到eureka服务端的显示名称，eureka服务端列表的status列
+    prefer-ip-address: true #访问路径显示ip，在eureka服务端列表的status列悬浮时显示ip:port
+
+#配置eureka的Info信息
+info:
+  app.name: springcloud-20230307
+  app.author: 张富东
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+---
+server:
+  port: 8001
+spring:
+  profiles: test
+  application:
+    name: springcloud-config-dept-client #对外显示的微服务名称，可用于服务调用，eureka服务端列表的Application列
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///springcloud2
+    username: root
+    password: root1234
+    dbcp2:
+      initial-size: 5 #初始化连接数
+      min-idle: 5 #数据库连接池的最小维持连接数
+      max-total: 5 #最大连接数
+      max-wait-millis: 200 #等待连接获取的最大超时时间
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml #mybatis配置文件所在路径
+  type-aliases-package: com.learn.springcloud.entity
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml #mybatis的mapper映射文件位置
+
+eureka:
+  client:
+    service-url:
+      #集群，地址需要在hosts文件进行映射
+      defaultZone: http://eureka-server-7001.com:7001/eureka/
+      #defaultZone: http://localhost:7001/eureka #服务注册到eureka服务端的地址，单机版
+  instance:
+    instance-id: provider-dept-8001 #注册到eureka服务端的显示名称，eureka服务端列表的status列
+    prefer-ip-address: true #访问路径显示ip，在eureka服务端列表的status列悬浮时显示ip:port
+
+#配置eureka的Info信息
+info:
+  app.name: springcloud-20230307
+  app.author: 张富东
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
